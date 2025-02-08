@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+      <link rel="stylesheet" href="assets/node_modules/reset.css/reset.css">
+
+
+      <link rel="stylesheet" href="assets/css/style.css">
+
+      <link rel="icon" href="assets/favicon.png">
+
+</head>
+<body>
+
+    <!-- nav bar starts -->
+  {% include 'header.html' %}
+    <!-- nav bar end -->
+
+  
+    <!-- main section start -->
+    <main>
+        <div class="header">
+            <h2>Classify</h2>
+        </div>
+
+        <div class="tweet_box">
+            <form action="/classify" method="POST">
+                <div class="tweet_box-input">
+                    <img src="assets/images/profilePic.jpeg" alt="profile imagw">
+                    <textarea cols="10" rows="10" placeholder="What's happening?" name="text"></textarea>
+                    <button class="" type="submit">Tweet</button>
+
+                </div>
+            </form>
+
+        </div>
+
+        
+
+   
+
+    </main>
+    <!-- main section end -->
+
+    <!-- aside element start -->
+    
+    <!-- aside element ends -->
+
+    
+</body>
+</html>

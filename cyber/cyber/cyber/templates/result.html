@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+      <link rel="stylesheet" href="assets/node_modules/reset.css/reset.css">
+
+
+      <link rel="stylesheet" href="assets/css/style.css">
+
+      <link rel="icon" href="static/favicon.png">
+
+</head>
+<body>
+
+    <!-- nav bar starts -->
+  {% include 'header.html' %}
+    <!-- nav bar end -->
+
+  
+    <!-- main section start -->
+    <main>
+        <div class="header">
+            <h2>Results</h2>
+        </div>
+
+      
+        <div class="post">
+            <div class="post_profile-image">
+                <img src="assets/images/page-profile-image.png" alt="java-logo">
+
+            </div>
+
+            <div class="post_body">
+                <div class="post_header">
+                    <div class="post_header-text">
+                        <h3>User
+                            <span class="header-icon-section">
+                                <span class="material-icons post_badge">verified</span>@User_001
+                            </span>
+                        </h3>
+                    </div>
+            
+                    <div class="post_header-discription">
+                        <p>
+                            <script>
+                                var text = "{{ text }}";
+                                var words = text.split(" ");
+                                var formattedText = "";
+                                for (var i = 0; i < words.length; i++) {
+                                    formattedText += words[i] + " ";
+                                    if ((i + 1) % 13 === 0) {
+                                        formattedText += "<br>";
+                                    }
+                                }
+                                document.write(formattedText);
+                            </script>
+                        </p>
+                        <br>
+                        <h2 style="color: red;">{{category}}</h2>
+                    </div>
+                </div>
+            
+                <div class="post_footer">
+                    <span class="material-icons">chat</span>
+                    <span class="material-icons">repeat</span>
+                    <span class="material-icons">favorite_border</span>
+                    <span class="material-icons">file_upload</span>
+                </div>
+            </div>
+            
+
+        </div>
+
+        
+
+    
+
+    </main>
+    <!-- main section end -->
+
+    <!-- aside element start -->
+    <aside>
+
+       
+
+        <div class="aside_container">
+            <h2>What's happening?</h2>
+            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Save the date, because <a href="https://twitter.com/hashtag/JavaOne?src=hash&amp;ref_src=twsrc%5Etfw">#JavaOne</a> is back! Join the world’s premier <a href="https://twitter.com/hashtag/developer?src=hash&amp;ref_src=twsrc%5Etfw">#developer</a> conference in Las Vegas at <a href="https://twitter.com/Oracle?ref_src=twsrc%5Etfw">@Oracle</a> CloudWorld October 16–20, 2022.<br><br>Subscribe for the latest news about registration, the call for papers, luminary speakers, and more. <a href="https://t.co/hhSf3dMGc1">https://t.co/hhSf3dMGc1</a> <a href="https://t.co/OeDFukcM8K">pic.twitter.com/OeDFukcM8K</a></p>&mdash; Java (@java) <a href="https://twitter.com/java/status/1506310994112483328?ref_src=twsrc%5Etfw">March 22, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+        </div>
+        
+    </aside>
+    <!-- aside element ends -->
+
+    
+</body>
+</html> 

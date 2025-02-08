@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <title>Twitter-like Website</title>
+    <style>
+        /* CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Set the height of the body to 100% of the viewport height */
+        }
+        
+        header, footer {
+            flex-shrink: 0; /* Prevent the header and footer from shrinking */
+        }
+        
+        main {
+            display: flex;
+            flex-grow: 1; /* Allow the main section to grow and fill the remaining space */
+            overflow: auto; /* Enable scrolling for the main section */
+        }
+        
+        .section {
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Adjust widths for first and third sections */
+        .first-section {
+            width: 30%; /* Set width to 30% */
+        }
+        .third-section {
+            width: 20%; /* Set width to 40% */
+        }
+
+        /* Adjust width for the second section */
+        .second-section {
+            width: 70%; /* Set width to 40% */
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            margin: 0;
+            background-color: var(--white);
+          
+            overflow: hidden;
+          }
+          
+          :root {
+            /* Color Pallete */
+            /* Pallete Used:
+            https://coolors.co/386641-6a994e-a7c957-f2e8cf-fffffc-001219 */
+          
+            --white: #fffffc;
+            --secondWhite: #f2e8cf;
+            --black: #001219;
+            --grey: #434343;
+            --primaryColor: #6a994e;
+            --secondaryColor: #a7c957;
+            --darkGreen: #386641;
+          
+            --highlightRed: #ff006e;
+            --highlightGreen: #06d6a0;
+            --highlightBlue: #3a86ff;
+            --highlightRedLowOp: #ff006f2b;
+            --highlightGreenLowOp: #06d6a02b;
+            --highlightBlueLowOp: #3a86ff2b;
+          
+            --shadowColorLight: rgba(0, 18, 25, 0.3);
+            --shadowColorDark: rgba(0, 18, 25, 0.5);
+          }
+          
+          .noselect {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                            supported by Chrome, Edge, Opera and Firefox */
+          }
+          
+          .material-symbols-outlined {
+            /* Icon Settings */
+            font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+          }
+          .icon-not-filled {
+            font-variation-settings: "FILL" 0;
+          }
+          
+          /* || Reusable Classes */
+          .action-button {
+            background-color: var(--primaryColor);
+            color: var(--white);
+          
+            width: fit-content;
+            padding: 0 24px;
+          
+            line-height: 40px;
+            height: 40px;
+          
+            font-size: large;
+            border-radius: 20px;
+          
+            transition: 0.2s;
+          }
+          .action-button:hover {
+            cursor: pointer;
+            box-shadow: var(--shadowColorDark) 0px 1px 5px;
+          }
+          .action-button:active {
+            filter: brightness(92%); /* -8% */
+          }
+          
+          .icon-text-button {
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 8px;
+            background-color: var(--white);
+            color: var(--black);
+          
+            width: fit-content;
+            height: 40px;
+            padding: 0 24px 0 16px;
+          
+            font-size: large;
+            line-height: 40px;
+            border-radius: 20px;
+          
+            transition: 0.2s;
+          }
+          .icon-text-button:hover {
+            filter: brightness(92%); /* -8% */
+            cursor: pointer;
+            box-shadow: var(--shadowColorLight) 0px 1px 5px;
+          }
+          .icon-text-button:active {
+            /* Pressed */
+            filter: brightness(88%); /* -12% */
+          }
+          .icon-text-button i {
+            /* Button Icon */
+            align-self: center;
+            font-size: 18px;
+          }
+          
+          .icon-button {
+            background-color: var(--white);
+            color: var(--black);
+          
+            width: fit-content;
+            height: fit-content;
+            padding: 8px;
+          
+            font-size: large;
+            border-radius: 20px;
+          
+            transition: 0.2s;
+          }
+          .icon-button:hover {
+            filter: brightness(92%); /* -8% */
+            cursor: pointer;
+            box-shadow: var(--shadowColorLight) 0px 1px 5px;
+          }
+          .icon-button:active {
+            filter: brightness(88%); /* -12% */
+          }
+          .icon-button i {
+            display: flex;
+            font-size: 30px;
+            align-items: center;
+          }
+          .icon-xlarge {
+            font-size: x-large;
+          }
+          /* Changed by JavaScript when like pressed */
+          .liked {
+            color: var(--highlightRed);
+            font-variation-settings: "FILL" 1;
+          }
+          /* Changed by JavaScript when there is text in input */
+          .disabled {
+            pointer-events: none;
+            filter: brightness(60%);
+          }
+          
+          .highlight-blue:hover {
+            background-color: var(--highlightBlueLowOp);
+            color: var(--highlightBlue);
+          }
+          .highlight-green:hover {
+            background-color: var(--highlightGreenLowOp);
+            color: var(--highlightGreen);
+          }
+          .highlight-red:hover {
+            background-color: var(--highlightRedLowOp);
+            color: var(--highlightRed);
+          }
+          
+          .text-button {
+            background-color: var(--secondWhite);
+            color: var(--black);
+          
+            width: fit-content;
+            height: 40px;
+            padding: 8px 16px;
+          
+            font-size: medium;
+            line-height: auto;
+            border-radius: 20px;
+          
+            transition: 0.2s;
+          }
+          .text-button:hover {
+            filter: brightness(92%); /* -8% */
+            cursor: pointer;
+            box-shadow: var(--shadowColorLight) 0px 1px 5px;
+          }
+          .text-button:active {
+            /* Pressed */
+            filter: brightness(88%); /* -12% */
+          }
+          
+          .profile-button {
+            background-color: var(--white);
+            color: var(--black);
+            display: grid;
+            grid-template:
+              "img name more" auto
+              "img username more" auto /
+              60px auto auto;
+            gap: 8px;
+          
+            width: fit-content;
+            height: 64px;
+            padding: 0 24px;
+          
+            font-size: large;
+            border-radius: 50px;
+          
+            transition: 0.2s;
+          }
+          .profile-button:hover {
+            filter: brightness(92%); /* -8% */
+            cursor: pointer;
+            box-shadow: var(--shadowColorDark) 0px 1px 5px;
+          }
+          .profile-button:active {
+            filter: brightness(88%); /* -12% */
+          }
+          
+          .news-button {
+            background-color: var(--white);
+            color: var(--black);
+            display: grid;
+            grid-template:
+              "page img" auto
+              "title img" auto /
+              auto auto;
+          
+            width: auto;
+            padding: 12px 24px;
+          
+            font-size: large;
+          
+            transition: 0.2s;
+          }
+          .news-button:hover {
+            filter: brightness(92%); /* -8% */
+            cursor: pointer;
+            box-shadow: var(--shadowColorDark) 0px 1px 5px;
+          }
+          .news-button:active {
+            filter: brightness(88%); /* -12% */
+          }
+          .news-button .news-page {
+            /* World News - Today */
+            grid-area: page;
+            margin: 0;
+          
+            display: flex;
+            align-items: flex-end;
+          
+            font-size: small;
+          }
+          .news-button .news-title {
+            /* Russias's........ */
+            grid-area: title;
+            margin: 0;
+          
+            font-size: medium;
+            word-wrap: break-word;
+            font-weight: bold;
+          }
+          .news-button img {
+            /* user picture */
+            grid-area: img;
+            height: 68px;
+            width: 68px;
+            object-fit: cover;
+          
+            margin-left: 12px;
+          
+            border-radius: 16px;
+            box-shadow: var(--shadowColorLight) 0px 1px 5px;
+          
+            display: flex;
+            align-self: center;
+            justify-self: right;
+          }
+          
+          .large-button {
+            padding: 8px 90px;
+            border-radius: 50px;
+          }
+          .circle-icon-button {
+            border-radius: 50px;
+            height: 24px;
+            padding: 16px;
+            margin: 0;
+            width: fit-content;
+          
+            position: relative;
+            left: -5px;
+          }
+          .circle-icon-button i {
+            position: relative;
+            border-radius: 50px;
+            top: -3px;
+          }
+          
+          .rect-button {
+            border-radius: 0;
+            width: auto;
+          }
+          .rect-button .material-symbols-outlined {
+            /* The button Icon */
+            justify-content: end;
+          }
+          .bottom-radius-normal {
+            border-radius: 0 0 20px 20px;
+          }
+          /* ... END OF REUSABLE */
+          
+          /* Is the Main container (not very responsive) */
+          .container {
+            /* Root Grid */
+            /* ~300px 1fr ~320px
+            24% 48% 28% */
+            display: grid;
+            grid-template-columns: 320px 600px 450px;
+            height: 100vh;
+            width: 80vw;
+            margin: 0 auto;
+            justify-content: center;
+          }
+          
+          /* || Left Panel */
+          .left-panel {
+            background-color: var(--white);
+            display: grid;
+            grid-template-rows: auto; /* Top and Bottom */
+          
+            border-radius: 0 20px 20px 0; /* Right Radius */
+            border-right: 1px solid var(--black);
+          
+            height: auto;
+            overflow: hidden;
+          
+            padding: 8px 30px 8px 40px; /* 8 top and bottom, 40 left 30 right */
+          }
+          .left-panel .top {
+            /* TOP */
+            display: grid;
+            grid-template-rows: repeat(7, 45px) 60px; /* More space to action */
+          }
+          .left-panel img {
+            /* Logo */
+            height: 36px;
+            position: relative;
+            left: 6px;
+          }
+          .left-panel .bottom {
+            /* BOTTOM */
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+          
+            width: 250px;
+          
+            margin-bottom: 8px;
+          }
+          .left-panel .profile-button img {
+            /* user picture */
+            grid-area: img;
+            height: 60px;
+            display: flex;
+            align-self: center;
+          }
+          .left-panel .profile-button .profile-name {
+            /* luciano simoni */
+            grid-area: name;
+            font-size: medium;
+            position: relative;
+            top: 10px;
+          }
+          .left-panel .profile-button .profile-username {
+            /* @lucian.oh */
+            grid-area: username;
+            font-size: small;
+            position: relative;
+          }
+          .left-panel .profile-button .material-symbols-outlined {
+            /* the MORE btn */
+            grid-area: more;
+            display: flex;
+            align-self: center;
+            justify-self: flex-end;
+            margin-left: 8px;
+            width: fit-content;
+          }
+          
+          .left-panel-compact {
+            background-color: var(--white);
+            display: none;
+            grid-template-rows: auto; /* Top and Bottom */
+          
+            border-radius: 0 20px 20px 0;
+            border-right: 1px solid var(--black);
+          
+            height: auto;
+            overflow: none;
+          
+            padding: 8px 10px 8px 30px; /* 8 top and bottom, 40 left 30 right */
+          }
+          .left-panel-compact img {
+            /* logo */
+            height: 36px;
+            position: relative;
+            left: 6px;
+          }
+          .left-panel-compact .top-compact {
+            display: grid;
+            grid-template-rows: repeat(7, 1fr) 60px; /* More space to action */
+          
+            width: fit-content;
+          }
+          .left-panel-compact .bottom-compact {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+          
+            margin-bottom: 8px;
+            width: fit-content;
+          }
+          .left-panel-compact .profile-button {
+            /* Updates the profile to only icon */
+            display: inline-block;
+            padding: 0;
+            border-radius: 50px;
+          
+            /* Centers it in the vertical parent */
+            position: relative;
+            left: -7px;
+          }
+          .left-panel-compact .profile-button img {
+            /* Center the profile image */
+            height: 60px;
+            position: relative;
+            left: 0;
+            top: 4px;
+          }
+          /* ... */
+          
+          /* || Right Panel */
+          .right-panel {
+            /* ID RIGHT-PANEL*/
+            background-color: var(--white);
+            display: grid;
+            grid-template-rows: auto;
+            gap: 18px;
+          
+            border-radius: 20px 0 0 20px;
+            border-left: 1px solid var(--black);
+          
+            /* Hide scroll bar */
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+            overflow-y: scroll;
+            overflow-x: hidden;
+          
+            align-content: start; /* PERFECT ALIGNED 🤌🤌 */
+          
+            padding: 0 35px 8px 25px; /* -5px on sides cause element on right panel have margin of 5px*/
+          }
+          .right-panel::-webkit-scrollbar {
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            display: none;
+          }
+          
+          .search {
+            /* Stick it to the top when scrolled */
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+          
+            padding: 8px 5px;
+          
+            background-color: var(--white);
+          
+            z-index: 1001; /* Show over other elements */
+          }
+          .search-bar {
+            width: 100%;
+            height: 40px;
+          
+            background-color: var(--secondWhite);
+          
+            border: 2px solid var(--secondWhite);
+            border-radius: 50px;
+            padding: 8px 16px;
+            padding-left: 48px;
+            outline: none; /* Removes the focus border */
+          }
+          .search-bar:focus {
+            background-color: var(--white);
+          
+            border: 2px solid var(--primaryColor);
+          }
+          .search-icon {
+            position: absolute;
+            top: 16px; /* 8+8 */
+            left: 23px; /* 18+5 */
+            color: var(--grey);
+          }
+          
+          .who-to-follow,
+          .whats-happening {
+            display: grid;
+            grid-template-rows: auto;
+            gap: 8px;
+          
+            background-color: var(--secondWhite);
+          
+            border-radius: 20px;
+          
+            margin: 0 5px; /* Sides */
+          }
+          .who-to-follow .profile-button,
+          .whats-happening .news-button {
+            background-color: var(--secondWhite);
+          }
+          .who-to-follow h3, /* Both titles */
+          .whats-happening h3 {
+            /* Title */
+            margin: 0;
+            padding: 12px 16px;
+          
+            font-weight: bolder;
+            color: var(--black);
+          }
+          
+          .whats-happening .text-button {
+            /* Show more button */
+            width: auto;
+            height: auto;
+            padding: 16px;
+          
+            border-radius: 0 0 20px 20px;
+          }
+          
+          .who-to-follow .profile-button img {
+            /* user picture */
+            grid-area: img;
+            height: 60px;
+            display: flex;
+            align-self: center;
+          }
+          .who-to-follow .profile-button .profile-name {
+            /* luciano simoni */
+            grid-area: name;
+            font-size: medium;
+            position: relative;
+            top: 10px;
+          }
+          .who-to-follow .profile-button .profile-username {
+            /* @lucian.oh */
+            grid-area: username;
+            font-size: small;
+            position: relative;
+          }
+          .who-to-follow .profile-button .material-symbols-outlined {
+            /* the MORE btn */
+            grid-area: more;
+            display: flex;
+            align-self: center;
+            justify-self: flex-end;
+            margin-left: 8px;
+            width: fit-content;
+          }
+          
+          .footer {
+            color: var(--grey);
+            margin-bottom: 25px;
+          }
+          /* END OF RIGHT PANEL */
+          
+          /* MAIN */
+          .main {
+            /* ID MAIN*/
+            display: grid;
+            grid-template-rows: auto auto 1fr;
+          
+            /* Scroll bar */
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+            overflow-y: scroll;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+          }
+          .main::-webkit-scrollbar {
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            display: none;
+          }
+          .main .header {
+            display: flex;
+            box-sizing: border-box;
+            backdrop-filter: blur(5px);
+            background-color: #ffffffa7;
+          
+            position: fixed;
+            z-index: 2;
+          
+            width: 600px;
+            height: 50px;
+          
+            font-weight: bolder;
+            font-size: x-large;
+            align-items: center;
+          
+            margin: 0;
+            padding: 0 16px;
+          }
+          /* Mobile */
+          .main .mobile-header {
+            /* Only displayed in mobile media querie */
+            display: none;
+            box-sizing: border-box;
+          
+            z-index: 2;
+          
+            /* display: grid; ON IN MOBILE ONLY */
+            grid-auto-flow: column;
+            width: 100%;
+          
+            background-color: var(--white);
+            padding: 8px;
+          
+            position: fixed;
+          
+            justify-items: center; /*Centers logo div*/
+            align-items: center;
+          }
+          .main .mobile-header .left {
+            justify-self: left;
+          }
+          .main .mobile-header .right {
+            justify-self: right;
+          }
+          .main .mobile-header img {
+            /* Logo */
+            height: 36px;
+          }
+          
+          .main .mobile-fab {
+            display: none;
+            position: fixed;
+            box-sizing: border-box;
+          
+            background-color: var(--primaryColor);
+          
+            border-radius: 16px;
+            height: 56px;
+            width: 56px;
+          
+            box-shadow: var(--shadowColorLight) 0px 1px 5px;
+          
+            justify-content: center;
+            align-items: center;
+          
+            z-index: 2;
+            right: 16px;
+            bottom: 76px;
+          }
+          .main .mobile-fab i {
+            /* Icon */
+            font-size: 24px;
+            background-color: transparent;
+            padding: 0;
+          
+            color: var(--white);
+          
+            font-variation-settings: "FILL" 1, "wght" 1000;
+          }
+          
+          /* NAV = Home | Search | Audio | Notifications | Inbox */
+          .main .mobile-nav-bar {
+            display: none;
+            grid-auto-flow: column;
+            gap: 8px;
+          
+            justify-items: center;
+          
+            z-index: 2;
+            position: fixed;
+            bottom: 0;
+          
+            width: 100%;
+            padding: 12px 0 16px 0;
+          
+            background-color: var(--white);
+          }
+          .main .mobile-nav-bar .nav-button {
+            /* Touchable button */
+            width: minmax(48px, auto);
+            display: flex;
+            align-content: center;
+            cursor: pointer;
+          }
+          .main .mobile-nav-bar .nav-button i {
+            /* Icon */
+            display: flex;
+          
+            width: 64px;
+            height: 32px;
+            font-size: 24px;
+          
+            justify-content: center;
+            align-items: center;
+          
+            border-radius: 16px;
+            background-color: var(--white);
+          
+            font-variation-settings: "FILL" 0;
+            transition: 0.2s;
+          }
+          .main .mobile-nav-bar .nav-button .active-icon {
+            /* Menu filled */
+            font-variation-settings: "FILL" 1;
+          }
+          .main .mobile-nav-bar .nav-button:active i {
+            /* When nav-button pressed: */
+            filter: brightness(88%);
+          }
+          
+          /* End of Mobile features */
+          
+          /* Do a Treex */
+          .treex /* Create a post section */ {
+            display: grid;
+            grid-template-columns: 60px auto;
+            gap: 8px;
+          
+            padding: 50px 16px 16px 16px;
+            border-bottom: 1px solid var(--black);
+          
+            width: auto;
+            height: fit-content;
+          
+            background-color: var(--white);
+          }
+          .treex input {
+            /* Text Input */
+            font-size: larger;
+            border: none;
+            padding: 12px 0;
+          
+            width: 100%;
+            overflow-wrap: break-word;
+          
+            outline: none; /* Removes the focus border */
+          }
+          .treex textarea {
+            font-size: larger;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+          
+            border: none;
+            padding: 12px 0;
+          
+            width: 100%;
+            overflow-y: hidden;
+          
+            resize: none;
+            outline: none;
+          }
+          .treex .right-content {
+            gap: 12px;
+          }
+          .treex .right-content .content-buttons {
+            display: grid;
+            grid-auto-flow: column;
+          }
+          .treex .text-button {
+            /* Treex (tweet) */
+            box-sizing: border-box;
+          
+            background-color: var(--primaryColor);
+            color: var(--white);
+          
+            font-weight: bold;
+            justify-self: end;
+          }
+          
+          /* Posts */
+          .main-content-grid {
+            /* All posts grid */
+            display: grid;
+            grid-template-rows: auto;
+            align-content: flex-start;
+          }
+          .post {
+            /* Each post */
+            display: grid;
+            grid-template-columns: 60px auto;
+            padding: 16px;
+            gap: 8px;
+          
+            width: auto;
+            height: fit-content;
+            border-bottom: 1px solid var(--black);
+          
+            background-color: var(--white);
+          }
+          .post img {
+            width: 60px;
+            border-radius: 100%;
+          }
+          .post .right-content {
+            display: grid;
+            /* justify-content: left; */
+            grid-template-rows: repeat(3, auto);
+            gap: 8px;
+          }
+          .post .user-details {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            gap: 8px;
+            justify-content: left;
+          }
+          .post .user-details .profile-name {
+            font-weight: bold;
+          }
+          .post .user-details .profile-username,
+          .post .user-details .post-timeby {
+            font-weight: lighter;
+            color: var(--darkGreen);
+          }
+          .post .right-content .content-buttons {
+            display: grid;
+            grid-auto-flow: column;
+            justify-content: stretch;
+          }
+          .post .right-content .content i {
+            width: fit-content;
+          }
+          
+          /* Types of post */
+          .post-content-text p {
+            /* What the person acctually tweets */
+            font-weight: 500;
+            margin: 0;
+          }
+          .post-content-text a {
+            color: var(--highlightBlue);
+          }
+          .post-content-image img {
+            width: 100%;
+            border-radius: 20px;
+            margin-top: 12px;
+            image-rendering: pixelated;
+            image-resolution: 50dpi;
+          }
+          .post-content-video div {
+            margin-top: 12px;
+            /* From Embled website */
+            height: 0;
+            padding-bottom: calc(56.25%);
+            position: relative;
+            width: 100%;
+            /* End of embled */
+          }
+          .post-content-video div iframe {
+            border-radius: 20px;
+            border: 0;
+            height: 100%;
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+          }
+          
+          /* Back to Content start */
+          .main-content-grid a {
+            /* Button */
+            justify-self: center;
+            margin: 16px;
+            text-decoration: none;
+          }
+          .main-content-grid a i {
+            /* Button Icon */
+            font-size: 50px;
+            transition: 0.1s;
+            font-variation-settings: "FILL" 0;
+          }
+          .main-content-grid a:active i {
+            font-variation-settings: "FILL" 1;
+          }
+          /* MAIN END */
+          
+          /* MEDIA QUERIES */
+          /* Twitter media queries */
+          /* 1275 Left menu compact */
+          /* 1095 right menu reduce ~50px */
+          /* 1000 right menu hidden - I choose 950*/
+          /* 500 full mobile - I choose 600*/
+          
+          /* 1275 Left menu compact */
+          @media screen and (max-width: 1375px) {
+            .container {
+              /* Root Grid */
+              grid-template-columns: 100px 600px 450px; /* updates the left panel size */
+            }
+            .left-panel {
+              /* Extended panel hidden to show only compact*/
+              display: none;
+            }
+            .left-panel-compact {
+              /* Compact panel (for tablets) */
+              display: grid;
+            }
+          }
+          
+          /* 1095 right menu reduce ~50px */
+          @media screen and (max-width: 1150px) {
+            .container {
+              /* Root Grid */
+              grid-template-columns: 100px 600px 350px; /* updates the right panel size */
+            }
+          }
+          
+          /* 950 right menu hidden and BorderRight to main */
+          @media screen and (max-width: 1055px) {
+            .container {
+              grid-template-columns: 100px 600px; /* Removes the right panel completilly*/
+            }
+            .right-panel {
+              /* Removes it */
+              display: none;
+            }
+          
+            .main {
+              border-right: 1px solid var(--black);
+            }
+          }
+          
+          /* 600 full mobile */
+          /* HEADER OK = Profile Icon OK | Logo OK | More OK */
+          /* MAIN = No margin OK, Floating Add button, No Treex on top OK */
+          /* NAV = Home | Search | Audio | Notifications | Inbox */
+          @media screen and (max-width: 705px) {
+            .container {
+              grid-template-columns: 1fr;
+              width: 100vw; /* No white spaces on the side */
+            }
+          
+            .left-panel-compact {
+              /* Remove left panel */
+              display: none;
+            }
+            .main .header {
+              /* Remove Menu Header */
+              display: none;
+            }
+            .treex {
+              /* Removes the Treex */
+              display: none;
+            }
+          
+            .main .mobile-header {
+              display: grid;
+            }
+            .main .mobile-fab {
+              display: flex;
+            }
+            .main .mobile-nav-bar {
+              display: grid;
+            }
+          
+            .main-content-grid {
+              /* To not be behind topNav*/
+              margin-top: 56px;
+            }
+          }
+          
+          #website-info {
+            display: flex;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: rgb(0, 0, 0, 0.8);
+            gap: 8px;
+          }
+          #website-info a {
+            color: rgba(30, 0, 255, 0.8);
+          }
+          
+    </style>
+</head>
+<body>
+
+    <header style="background-color: #ffffff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); padding: 10px 0; display: flex; justify-content: space-between; align-items: center;">
+        <div style="width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center;">
+            <h1 style="font-size: 24px; font-weight: bold; margin-right: auto;">Twitter-like Website</h1>
+            <nav>
+                <ul style="list-style-type: none; padding: 0; display: flex;">
+                    <div class="nav_logo-wrapper">
+                        <svg class="nav_logo" viewBox="0 0 24 24" aria-hidden="true" class="r-1cvl2hr r-4qtqp9 r-yyyyoo r-16y2uox r-8kz0gk r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-lrsllp"><g><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"></path></g></svg>
+                    </div>
+                    <li style="margin-right: 20px;"><a href="/" style="text-decoration: none; color: #1da1f2;" onclick="window.location.href = location.href;">Home</a></li>
+                    <li style="margin-right: 20px;"><a href="/about" style="text-decoration: none; color: #1da1f2;">About</a></li>
+                </ul>
+            </nav>
+            <div style="display: flex; align-items: center;">
+                <button onclick="window.location.href = '/home';" style="background-color: #1da1f2; color: #ffffff; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">Tweet</button>
+                <div style="margin-left: 10px; display: flex; align-items: center;">
+                    <img src="assets/images/profilePic.jpeg" alt="profile imagw" style="width: 20px; border-radius: 50%; margin-left: 10px;">
+                    <span style="font-size: 12px; color: #657786; margin-left: 5px;">John</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <script>
+        function scrollToSection(event) {
+            event.preventDefault();
+            var section = document.querySelector("#section third-section");
+            window.scrollTo({
+                top: section.offsetTop,
+                behavior: "smooth"
+            });
+            var searchBox = document.querySelector("#search-box");
+            searchBox.focus();
+        }
+    </script>
+
+    <main>
+        <div class="section first-section" style="background-color: #ffffff;">
+            
+            <section style="width: 100%;">
+                <article style="background-color: #ffffff; padding: 20px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <img src="assets/images/profilePic.jpeg" alt="profile imagw" style="width: 40px; border-radius: 50%;">
+                        <div style="margin-left: 10px;">
+                            <h2 style="font-weight: bold;">John</h2>
+                            <p style="color: #657786;">@johndoe</p>
+                        </div>
+                        <button style="margin-left: auto; cursor: pointer;">...</button>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <p>This is a tweet!</p>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="display: flex; align-items: center; margin-right: 20px; color: #657786; cursor: pointer;">
+                            <i style="margin-right: 5px;">&#9825;</i>Like
+                        </div>
+                        <div style="display: flex; align-items: center; margin-right: 20px; color: #657786; cursor: pointer;">
+                            <i style="margin-right: 5px;">&#128172;</i>Comment
+                        </div>
+                        <div style="display: flex; align-items: center; margin-right: 20px; color: #657786; cursor: pointer;">
+                            <i style="margin-right: 5px;">&#128172;</i>share
+                        </div>
+                    </div>
+                </article>
+                <!-- More tweets go here -->
+            </section>
+            <!-- Content for section 1 -->
+        </div>
+        <div class="section second-section" style="background-color: #ffffff;">
+            
+            <div class="post">
+                <div class="post_profile-image">
+                    <img src="assets/images/page-profile-image.png" alt="java-logo">
+    
+                </div>
+    
+                <div class="post_body">
+                    <div class="post_header">
+                        <div class="post_header-text">
+                            <h3>Java
+                                <span class="header-icon-section">
+                                    <span class="material-icons post_badge">verified</span>@java
+                                </span>
+                            </h3>
+                        </div>
+    
+                        <div class="post_header-discription">
+                            <p>Java 18 is now available! #Java18 #JDK18 #openjdk </p>
+                            <br>
+                            <p>Download now: https://social.ora.cl/6012KoqQ0 <br>
+                                Release notes: https://social.ora.cl/6013KoqQF <br>
+                                API Javadoc: https://social.ora.cl/6015KoqQN <br>
+                                Features: https://social.ora.cl/6016KoqQ4 <br>
+                                </p>
+                        </div>
+                        
+                    </div>
+                    <img src="assets/images/post-image.jpeg" alt="java18">
+    
+                    <div class="post_footer">
+    
+                        <span class="material-icons">chat</span>
+                        <span class="material-icons">repeat</span>
+                        <span class="material-icons">favorite_border</span>
+                        <span class="material-icons">file_upload</span>
+                        
+    
+                    </div>
+    
+                </div>
+    
+            </div>
+    
+            <div class="post">
+                <div class="post_profile-image">
+                    <img src="assets/images/page-profile-image.png" alt="java-logo">
+    
+                </div>
+    
+                <div class="post_body">
+                    <div class="post_header">
+                        <div class="post_header-text">
+                            <h3>Java
+                                <span class="header-icon-section">
+                                    <span class="material-icons post_badge">verified</span>@java
+                                </span>
+                            </h3>
+                        </div>
+    
+                        <div class="post_header-discription">
+                            <p>Java 18 is now available! #Java18 #JDK18 #openjdk </p>
+                            <br>
+                            <p>Download now: https://social.ora.cl/6012KoqQ0 <br>
+                                Release notes: https://social.ora.cl/6013KoqQF <br>
+                                API Javadoc: https://social.ora.cl/6015KoqQN <br>
+                                Features: https://social.ora.cl/6016KoqQ4 <br>
+                                </p>
+                        </div>
+                        
+                    </div>
+                    <img src="assets/images/post-image.jpeg" alt="java18">
+    
+                    <div class="post_footer">
+    
+                        <span class="material-icons">chat</span>
+                        <span class="material-icons">repeat</span>
+                        <span class="material-icons">favorite_border</span>
+                        <span class="material-icons">file_upload</span>
+                        
+    
+                    </div>
+    
+                </div>
+    
+            </div>
+    
+    
+            <div class="post">
+                <div class="post_profile-image">
+                    <img src="images/page-profile-image.png" alt="java-logo">
+    
+                </div>
+    
+                <div class="post_body">
+                    <div class="post_header">
+                        <div class="post_header-text">
+                            <h3>Java
+                                <span class="header-icon-section">
+                                    <span class="material-icons post_badge">verified</span>@java
+                                </span>
+                            </h3>
+                        </div>
+    
+                        <div class="post_header-discription">
+                            <p>Java 18 is now available! #Java18 #JDK18 #openjdk </p>
+                            <br>
+                            <p>Download now: https://social.ora.cl/6012KoqQ0 <br>
+                                Release notes: https://social.ora.cl/6013KoqQF <br>
+                                API Javadoc: https://social.ora.cl/6015KoqQN <br>
+                                Features: https://social.ora.cl/6016KoqQ4 <br>
+                                </p>
+                        </div>
+                        
+                    </div>
+                    <img src="images/post-image.jpeg" alt="java18">
+    
+                    <div class="post_footer">
+    
+                        <span class="material-icons">chat</span>
+                        <span class="material-icons">repeat</span>
+                        <span class="material-icons">favorite_border</span>
+                        <span class="material-icons">file_upload</span>
+                        
+    
+                    </div>
+    
+                </div>
+    
+            </div>
+            <!-- Content for section 2 -->
+        </div>
+        <div class="section third-section" style="background-color: #ffffff;">
+           <!-- <h2>Section 3</h2>-->
+            <aside style="overflow: auto; padding: 20px; background-color: #ffffff;">
+                <div class="aside_input">
+                    <span class="material-icons aside_search-icon">search</span>
+                    <input id="search-box" type="text" placeholder="Search Twitter">
+                </div>
+                
+        
+                <div class="aside_container">
+                    <h2>What's happening?</h2>
+                    <blockquote class="twitter-tweet">
+                        <p lang="en" dir="ltr">Save the date, because <a href="https://twitter.com/hashtag/JavaOne?src=hash&amp;ref_src=twsrc%5Etfw">#JavaOne</a> is back! Join the world’s premier <a href="https://twitter.com/hashtag/developer?src=hash&amp;ref_src=twsrc%5Etfw">#developer</a> conference in Las Vegas at <a href="https://twitter.com/Oracle?ref_src=twsrc%5Etfw">@Oracle</a> CloudWorld October 16–20, 2022.<br><br>Subscribe for the latest news about registration, the call for papers, luminary speakers, and more. <a href="https://t.co/hhSf3dMGc1">https://t.co/hhSf3dMGc1</a>
+                            <a href="https://t.co/OeDFukcM8K">pic.twitter.com/OeDFukcM8K</a></p>&mdash; Java (@java) <a href="https://twitter.com/java/status/1506310994112483328?ref_src=twsrc%5Etfw">March 22, 2022</a>
+                    </blockquote>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+            </aside>
+        
+            <!-- Content for section 3 -->
+        </div>
+    </main>
+
+    
+    <footer style="background-color: #ffffff; padding: 10px 0; text-align: center; border-top: 1px solid #dddfe2;">
+        <div style="width: 90%; max-width: 1200px; margin: 0 auto;">
+            <p>&copy; 2024 Twitter-like Website. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

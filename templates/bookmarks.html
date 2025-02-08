@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookmark Page</title>
+<style>
+    /* Styles for tweets */
+    .tweet {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Styles for bookmark button */
+    .bookmark-btn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Styles for bookmarked tweets */
+    .bookmarked {
+        color: red;
+    }
+</style>
+</head>
+<body>
+
+<div id="tweetsContainer">
+    <!-- Sample tweet -->
+    <div class="tweet" data-bookmarked="false">
+        <p>This is a sample tweet</p>
+        <button class="bookmark-btn">Bookmark</button>
+    </div>
+
+    <!-- Add more tweets as needed -->
+</div>
+
+<script>
+    // Function to toggle bookmark status
+    function toggleBookmarkStatus(tweet) {
+        var bookmarkBtn = tweet.querySelector('.bookmark-btn');
+        var isBookmarked = tweet.dataset.bookmarked === "true";
+
+        if (isBookmarked) {
+            tweet.dataset.bookmarked = "false";
+            bookmarkBtn.classList.remove('bookmarked');
+            bookmarkBtn.textContent = 'Bookmark';
+        } else {
+            tweet.dataset.bookmarked = "true";
+            bookmarkBtn.classList.add('bookmarked');
+            bookmarkBtn.textContent = 'Bookmarked';
+        }
+    }
+
+    // Event listener for bookmark button clicks
+    document.querySelectorAll('.bookmark-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var tweet = this.closest('.tweet');
+            toggleBookmarkStatus(tweet);
+        });
+    });
+</script>
+
+</body>
+</html>
